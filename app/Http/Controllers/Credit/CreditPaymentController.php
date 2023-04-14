@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Credit;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Credit\Payment\CreditPaymentStoreRequest;
-use App\Http\Requests\Credit\Payment\CreditPaymentUpdateRequest;
 use App\Models\Credit\Credit;
 use App\Models\Credit\CreditPayment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class CreditPaymentController extends Controller {
 

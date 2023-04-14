@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Credit;
 
-use App\Libs\CreditSubject;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreditCheckRequest extends FormRequest {

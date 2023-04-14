@@ -92,24 +92,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    @if (Route::has('wallet.index'))
-                                        <a class="dropdown-item" href="{{ route('wallet.index') }}">{!! Icons::get(Icons::WALLET) !!} {{ __('Кошельки') }}</a>
-                                    @endif
-
                                     @if (Route::has('credit.index'))
                                         <a class="dropdown-item" href="{{ route('credit.index') }}">{!! Icons::get(Icons::CREDITS) !!}  {{ __('Кредиты') }}</a>
-                                    @endif
-
-                                    @if (Route::has('deposit.index'))
-                                        <a class="dropdown-item" href="{{ route('deposit.index') }}">{!! Icons::get(Icons::DEPOSITS) !!} {{ __('Вклады') }}</a>
-                                    @endif
-
-                                    @if (Route::has('spend.index'))
-                                        <a class="dropdown-item" href="{{ route('spend.index') }}">{!! Icons::get(Icons::SPEND) !!} {{ __('Траты') }}</a>
-                                    @endif
-
-                                    @if (Route::has('spend.category.index'))
-                                        <a class="dropdown-item" href="{{ route('spend.category.index') }}">{!! Icons::get(Icons::CATEGORY) !!} {{ __('Категории') }}</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -165,10 +149,10 @@
                             <i class="fas fa-gem me-3"></i>MyFinances
                         </h6>
                         <p>
-                            Это персональное финансовое приложение, разработанное как PWA (Progressive Web Application)
-                            на основе Laravel.
+                            Это базовая версия финансового приложение FinanceApp, разработанное как PWA
+                            (Progressive Web Application).
                             <br /><br />
-                            Актуальная версия приложения 2.0.1
+                            Актуальная версия приложения 1.0.1
                         </p>
                     </div>
 
@@ -177,8 +161,8 @@
                             Открытые модули
                         </h6>
                         <p>Кредитный калькулятор</p>
-                        <p>Калькулятор вкладов</p>
                         <p>Проверка кредита</p>
+                        <p>Кредитный календарь</p>
                     </div>
 
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -188,6 +172,7 @@
                         <p>Домашняя бухгалтерия</p>
                         <p>Учет расходов</p>
                         <p>Финансовый менеджер</p>
+                        <p>Калькулятор вкладов</p>
                     </div>
 
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

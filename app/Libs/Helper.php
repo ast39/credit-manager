@@ -8,23 +8,6 @@ use Illuminate\Support\Facades\Storage;
 class Helper {
 
     /**
-     * @param int $plow_back
-     * @return string
-     */
-    public static function plowBackText(int $plow_back): string
-    {
-        return match ($plow_back) {
-
-            PlowBack::YEARLY  => __('Раз в год'),
-            PlowBack::MONTHLY => __('Раз в месяц'),
-            PlowBack::WEEKLY  => __('Раз в неделю'),
-            PlowBack::DAILY   => __('Каждый день'),
-
-            default => 'При закрытии',
-        };
-    }
-
-    /**
      * @param int $first_payment_date
      * @param int $payments_count
      * @return int

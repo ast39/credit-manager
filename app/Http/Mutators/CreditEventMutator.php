@@ -17,6 +17,7 @@ class CreditEventMutator {
         $events = [];
 
         foreach ($credits as $credit) {
+
             $events[] = [
                 'credit_id' => $credit['credit_id'],
                 'date'      => date('d', $credit['payment_date']) . '.'
@@ -39,6 +40,10 @@ class CreditEventMutator {
      */
     private function paymentStatus(array $credit): bool
     {
+        if ($this->firstPaymentInFuture($credit)) {
+            return true;
+        }
+
         $current_payment_date = $credit['payment_date'];
 
         for ($i = 1; $i <= $credit['period']; $i++) {
@@ -71,6 +76,15 @@ class CreditEventMutator {
         }
 
         return 0;
+    }
+
+    /**
+     * @param array $credit
+     * @return bool
+     */
+    private function firstPaymentInFuture(array $credit): bool
+    {
+        return date('m', $credit['payment_date']) != date('m', time());
     }
 
     /**
