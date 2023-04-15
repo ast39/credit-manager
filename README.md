@@ -1,4 +1,4 @@
-# FinanceApp
+# Credit Manager v1.0.1
 ***
 ### 1. Разверните полное окружение:
 - composer install
