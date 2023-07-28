@@ -15,36 +15,36 @@
 
                     <div class="card-body">
 
-                        <table class="table table-striped admin-table__adapt admin-table__instrument">
-                            <thead>
+                        <table class="table table-bordered admin-table__adapt admin-table__instrument">
+                            <thead class="table-secondary">
                                 <tr>
-                                    <th>#</th>
                                     <th class="text-start">{!! Icons::get(Icons::TITLE) !!} Название</th>
                                     <th class="text-center">{!! Icons::get(Icons::CURRENCY) !!} Валюта</th>
-                                    <th class="text-center">{!! Icons::get(Icons::BALANCE) !!} Сумма</th>
+                                    <th class="text-end">{!! Icons::get(Icons::BALANCE) !!} Сумма</th>
                                     <th class="text-center">{!! Icons::get(Icons::PERCENT) !!} Процент</th>
                                     <th class="text-center">{!! Icons::get(Icons::PERIOD) !!} Срок</th>
-                                    <th class="text-center">{!! Icons::get(Icons::BALANCE_START) !!} Платеж</th>
+                                    <th class="text-end">{!! Icons::get(Icons::BALANCE_START) !!} Платеж</th>
                                     <th class="text-end">{!! Icons::get(Icons::TOOLS) !!} Действия</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($credits as $credit)
                                     <tr>
-                                        <td data-label="#"><b>{{ $loop->iteration }}</b></td>
                                         <td data-label="Название" class="text-start"><a class="text-decoration-none text-primary" href="{{ route('credit.calc.show', $credit->credit_id) }}">{{ $credit->title ?? '' }}</a></td>
                                         <td data-label="Валюта" class="text-center">{{ $credit->currency ?? '' }}</td>
-                                        <td data-label="Сумма" class="text-center">{{ $credit->amount ?? ' - ' }}</td>
-                                        <td data-label="Процент" class="text-center">{{ $credit->percent ?? ' - ' }}%</td>
-                                        <td data-label="Срок" class="text-center">{{ $credit->period ?? ' - ' }} (в месяцах)</td>
-                                        <td data-label="Платеж" class="text-center">{{ $credit->payment ?? ' - ' }}</td>
+                                        <td data-label="Сумма" class="text-end">{{ number_format($credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->currency }}</td>
+                                        <td data-label="Процент" class="text-center">{{ number_format($credit->percent ?? 0, 2, '.', ' ') }}%</td>
+                                        <td data-label="Срок" class="text-center">{{ $credit->period ?? 0 }} (в месяцах)</td>
+                                        <td data-label="Платеж" class="text-end">{{ number_format($credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->currency }}</td>
                                         <td data-label="Действия" class="text-end">
                                             <form method="post" action="{{ route('credit.calc.destroy', $credit->credit_id) }}">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <a title="Открыть" href="{{ route('credit.calc.show', $credit->credit_id) }}" class="btn btn-sm btn-primary me-1"><i class="bi bi-text-center" style="font-size: 1rem"></i></a>
-                                                <button type="submit" title="Удалить" onclick="return confirm('Вы уверены, что хотите удалить расчет?')" class="btn btn-sm btn-danger"><i class="bi bi-trash" style="font-size: 1rem"></i></button>
+                                                <div class="mmot-table__action">
+                                                    <a title="Открыть" href="{{ route('credit.calc.show', $credit->credit_id) }}" class="mmot-table__action__one"><svg class="mmot-table_view mmot-table__ico"><use xlink:href="#site-view"></use></svg></a>
+                                                    <button title="Удалить" type="submit" class="mmot-table__action__one" onclick="return confirm('Вы уверены, что хотите удалить расчет?')"><svg class="mmot-table__delete mmot-table__ico"><use xlink:href="#site-delete"></use></svg></button>
+                                                </div>
                                             </form>
                                         </td>
                                     </tr>
@@ -55,7 +55,7 @@
                         </table>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a href="{{ route('credit.calc.create') }}" class="btn btn-primary">{!! Icons::get(Icons::CREATE) !!} {{ __('Новый расчет') }}</a>
+                            <a href="{{ route('credit.calc.create') }}" class="btn btn-primary rounded">{!! Icons::get(Icons::CREATE) !!}&nbsp;{{ __('Новый расчет') }}</a>
                         </div>
                     </div>
                 </div>

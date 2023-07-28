@@ -43,8 +43,8 @@
 
                             <div class="mb-3">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                    <a href="{{ url()->previous() }}" class="btn btn-secondary me-md-2">{!! Icons::get(Icons::RETURN) !!} {{ __('Назад') }}</a>
-                                    <button type="submit" class="btn btn-primary">{!! Icons::get(Icons::PAYMENT) !!} {{ __('Внести') }}</button>
+                                    <a href="{{ url()->previous() }}" class="btn btn-secondary me-1 rounded">{!! Icons::get(Icons::RETURN) !!}&nbsp;{{ __('Назад') }}</a>
+                                    <button type="submit" class="btn btn-primary rounded">{!! Icons::get(Icons::PAYMENT) !!}&nbsp;{{ __('Внести') }}</button>
                                 </div>
                             </div>
                         </form>

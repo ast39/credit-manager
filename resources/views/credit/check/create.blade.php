@@ -22,6 +22,7 @@
 
                         <form method="post" action="{{ route('credit.check.store') }}">
                             @csrf
+                            @method('POST')
 
                             <div class="mb-3">
                                 <label for="title" class="form-label">{!! Icons::get(Icons::TITLE) !!} {{ __('Название') }}</label>
@@ -77,7 +78,7 @@
 
                             <div class="mb-3">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                    <button type="submit" class="btn btn-primary">{!! Icons::get(Icons::CHECK) !!} {{ __('Проверить') }}</button>
+                                    <button type="submit" class="btn btn-primary rounded">{!! Icons::get(Icons::CHECK) !!}&nbsp;{{ __('Проверить') }}</button>
                                 </div>
                             </div>
                         </form>

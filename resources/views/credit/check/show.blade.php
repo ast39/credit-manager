@@ -1,5 +1,4 @@
 @php
-    use App\Libs\CreditSubject;
     use App\Libs\Icons;
     use App\Libs\Helper;
 @endphp
@@ -26,11 +25,11 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body">
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">{!! Icons::get(Icons::BALANCE) !!} {{ __('Сумма') }}</th>
-                                                    <td class="text-end">{{ number_format($checker->credit->amount, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                    <td class="text-end">{{ number_format($checker->credit->amount, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">{!! Icons::get(Icons::PERCENT) !!} {{ __('Процент') }}</th>
@@ -42,7 +41,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">{!! Icons::get(Icons::BALANCE_CASH) !!} {{ __('Платеж') }}</th>
-                                                    <td class="text-end">{{ number_format($checker->credit->payment, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                    <td class="text-end">{{ number_format($checker->credit->payment, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -59,20 +58,20 @@
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
 
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                             <tr>
                                                 <th scope="row">{{ __('Проверочная сумма кредита') }}</th>
-                                                <td class="text-end">{{ number_format($checker->credit->amount, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->credit->amount, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Реальная сумма кредита') }}</th>
-                                                <td class="text-end">{{ number_format($checker->real_amount, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->real_amount, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Скрытая удерживаемая сумма') }}</th>
                                                 <td class="text-end">
-                                                    <span class="{{ $checker->hidden_amount > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_amount, 2, '.', ' ') }} {{ __('руб.') }}</span>
+                                                    <span class="{{ $checker->hidden_amount > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_amount, 0, '.', ' ') }} {{ $checker->credit->currency }}</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -89,7 +88,7 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                                     <div class="accordion-body">
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                             <tr>
                                                 <th scope="row">{{ __('Проверочный процент кредита') }}</th>
@@ -119,7 +118,7 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
                                     <div class="accordion-body">
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                             <tr>
                                                 <th scope="row">{{ __('Проверочный срок кредита') }}</th>
@@ -149,20 +148,20 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseFifth" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFifth">
                                     <div class="accordion-body">
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                             <tr>
                                                 <th scope="row">{{ __('Проверочный платеж по кредиту') }}</th>
-                                                <td class="text-end">{{ number_format($checker->credit->payment, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->credit->payment, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Реальный платеж по кредиту') }}</th>
-                                                <td class="text-end">{{ number_format($checker->real_payment, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->real_payment, 0, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Завышение ежемесячного платежа') }}</th>
                                                 <td class="text-end">
-                                                    <span class="{{ $checker->hidden_payment > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_payment, 2, '.', ' ') }} {{ __('руб.') }}</span>
+                                                    <span class="{{ $checker->hidden_payment > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_payment, 0, '.', ' ') }} {{ $checker->credit->currency }}</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -179,30 +178,30 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
                                     <div class="accordion-body">
-                                        <table class="table table-striped">
+                                        <table class="table table-borderless table-striped">
                                             <tbody>
                                             <tr>
                                                 <th scope="row">{{ __('Вы занимаете') }}</th>
-                                                <td class="text-end">{{ number_format($checker->credit->amount, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->credit->amount, 2, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Вы отдадите') }}</th>
-                                                <td class="text-end">{{ number_format($checker->credit->amount + $checker->total_overpayment, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->credit->amount + $checker->total_overpayment, 2, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr><td colspan="2">&nbsp;</td></tr>
                                             <tr>
                                                 <th scope="row">{{ __('Процентов за весь срок кредита') }}</th>
-                                                <td class="text-end">{{ number_format($checker->total_percent, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->total_percent, 2, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Скрытая переплата (страховка / комиссия)') }}</th>
                                                 <td class="text-end">
-                                                    <span class="{{ $checker->hidden_overpayment > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_overpayment, 2, '.', ' ') }} {{ __('руб.') }}</span>
+                                                    <span class="{{ $checker->hidden_overpayment > 0 ? 'text-danger': 'text-success' }}">{{ number_format($checker->hidden_overpayment, 2, '.', ' ') }} {{ $checker->credit->currency }}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">{{ __('Итоговая переплата по кредиту') }}</th>
-                                                <td class="text-end">{{ number_format($checker->total_overpayment, 2, '.', ' ') }} {{ __('руб.') }}</td>
+                                                <td class="text-end">{{ number_format($checker->total_overpayment, 2, '.', ' ') }} {{ $checker->credit->currency }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -213,9 +212,9 @@
 
                         <div class="d-grid gap-2 d-md-flex mt-3 justify-content-md-center">
                             @auth()
-                                <a href="{{ route('credit.check.index') }}" class="btn btn-secondary">{!! Icons::get(Icons::RETURN) !!}  {{ __('Назад') }}</a>
+                                <a href="{{ route('credit.check.index') }}" class="btn btn-secondary rounded">{!! Icons::get(Icons::RETURN) !!}  {{ __('Назад') }}</a>
                             @endauth
-                            <a href="{{ route('credit.check.create') }}" class="btn btn-primary me-md-2">{!! Icons::get(Icons::CHECK) !!} {{ __('Новая проверка') }}</a>
+                            <a href="{{ route('credit.check.create') }}" class="btn btn-primary me-1 rounded">{!! Icons::get(Icons::CHECK) !!} {{ __('Новая проверка') }}</a>
                         </div>
 
                     </div>

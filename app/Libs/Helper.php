@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Storage;
 class Helper {
 
     /**
+     * Стоимость
+     *
+     * @param float $price
+     * @return string
+     */
+    public static function price(float $price): string
+    {
+        if (is_null($price)) {
+            return ' - ';
+        }
+
+        return number_format($price, 0, '.', ' ') . ' р.';
+    }
+
+    /**
      * @param int $first_payment_date
      * @param int $payments_count
      * @return int

@@ -23,16 +23,23 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Fa Icons CSS (CDN) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @php
+        include_once public_path() . '/images/site_sprite.svg';
+    @endphp
+
+        <!-- CSS grubber -->
+    @stack('css')
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Fa Icons CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div id="app" class="newdesign">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm newdesign-nav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="me-2 mb-2" src="{{ asset('/logo.png') }}" width="30" height="30" />
@@ -43,6 +50,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if (Route::has('deposit.calc.create'))
@@ -118,28 +126,6 @@
 
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-            <div>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </section>
 
         <section class="">
             <div class="container text-center text-md-start mt-5">

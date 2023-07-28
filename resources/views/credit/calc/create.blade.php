@@ -32,10 +32,10 @@
                             <div class="mb-3">
                                 <label for="subject" class="form-label">{!! Icons::get(Icons::QUESTION) !!} {{ __('Что нужно рассчитать') }}</label>
                                 <select class="form-select" id="subject" name="subject" aria-describedby="subjectHelp">
-                                    <option {{ old('subject') == CreditSubject::AMOUNT  ? 'selected': '' }} value="{{ CreditSubject::AMOUNT }}">{{ __('Сумму кредита') }}</option>
-                                    <option {{ old('subject') == CreditSubject::PERCENT ? 'selected': '' }} value="{{ CreditSubject::PERCENT }}">{{ __('Процент по кредиту') }}</option>
-                                    <option {{ old('subject') == CreditSubject::PERIOD  ? 'selected': '' }} value="{{ CreditSubject::PERIOD }}">{{ __('Срок кредита') }}</option>
-                                    <option {{ old('subject') == CreditSubject::PAYMENT ? 'selected': '' }} value="{{ CreditSubject::PAYMENT }}">{{ __('Ежемесячный платеж') }}</option>
+                                    <option {{ (old('subject') ?? CreditSubject::PAYMENT) == CreditSubject::AMOUNT  ? 'selected': '' }} value="{{ CreditSubject::AMOUNT }}">{{ __('Сумму кредита') }}</option>
+                                    <option {{ (old('subject') ?? CreditSubject::PAYMENT) == CreditSubject::PERCENT ? 'selected': '' }} value="{{ CreditSubject::PERCENT }}">{{ __('Процент по кредиту') }}</option>
+                                    <option {{ (old('subject') ?? CreditSubject::PAYMENT) == CreditSubject::PERIOD  ? 'selected': '' }} value="{{ CreditSubject::PERIOD }}">{{ __('Срок кредита') }}</option>
+                                    <option {{ (old('subject') ?? CreditSubject::PAYMENT) == CreditSubject::PAYMENT ? 'selected': '' }} value="{{ CreditSubject::PAYMENT }}">{{ __('Ежемесячный платеж') }}</option>
                                 </select>
                                 <div id="subjectHelp" class="form-text">{{ __('Выбранное поле заполнять не надо') }}</div>
                             </div>
@@ -54,7 +54,7 @@
                             <div class="mb-3">
                                 <label for="amount" class="form-label">{!! Icons::get(Icons::BALANCE) !!} {{ __('Сумма') }}</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" {{ old('amount') == null ? 'disabled' : (old('amount') == CreditSubject::AMOUNT  ? 'disabled' : '') }} class="form-control subjects" id="amount" name="amount" placeholder="250000" value="{{ old('amount') }}" aria-describedby="amountHelp">
+                                    <input type="text" {{ old('amount') == CreditSubject::AMOUNT ? 'disabled' : '' }} class="form-control subjects" id="amount" name="amount" placeholder="250000" value="{{ old('amount') }}" aria-describedby="amountHelp">
                                     <span class="input-group-text currency">{{ __('RUB') }}</span>
                                 </div>
                                 <div id="amountHelp" class="form-text mb-3">{{ __('Сумма кредита') }}</div>
@@ -81,7 +81,7 @@
                             <div class="mb-3">
                                 <label for="payment" class="form-label">{!! Icons::get(Icons::BALANCE_CASH) !!} {{ __('Платеж') }}</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" {{ old('payment') == CreditSubject::PAYMENT  ? 'disabled' : '' }} class="form-control subjects" id="payment" name="payment" placeholder="8654.09" value="{{ old('payment') }}" aria-describedby="paymentHelp">
+                                    <input type="text" {{ old('payment') == null ? 'disabled' : (old('payment') == CreditSubject::PAYMENT  ? 'disabled' : '') }} class="form-control subjects" id="payment" name="payment" placeholder="8654.09" value="{{ old('payment') }}" aria-describedby="paymentHelp">
                                     <span class="input-group-text currency">{{ __('RUB') }}</span>
                                 </div>
                                 <div id="paymentHelp" class="form-text mb-3">{{ __('Ваш ежемесячный платеж по кредиту') }}</div>
@@ -98,7 +98,7 @@
 
                             <div class="mb-3">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                    <button type="submit" class="btn btn-primary">{!! Icons::get(Icons::CALCULATE) !!}  {{ __('Рассчитать') }}</button>
+                                    <button type="submit" class="btn btn-primary rounded">{!! Icons::get(Icons::CALCULATE) !!}&nbsp;{{ __('Рассчитать') }}</button>
                                 </div>
                             </div>
                         </form>
