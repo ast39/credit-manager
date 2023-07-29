@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CreditFilter extends AbstractFilter {
 
-    public const CURRENCY     = 'currency';
+    public const CURRENCY = 'currency';
+    public const TITLE    = 'title';
+    public const BANK     = 'bank';
 
     /**
      * @return array[]
@@ -16,6 +18,8 @@ class CreditFilter extends AbstractFilter {
         return [
 
             self::CURRENCY => [$this, 'currency'],
+            self::TITLE    => [$this, 'title'],
+            self::BANK     => [$this, 'bank'],
         ];
     }
 
@@ -26,7 +30,27 @@ class CreditFilter extends AbstractFilter {
      */
     public function currency(Builder $builder, $value): void
     {
-        $builder->where('currency', $value);
+        $builder->where('currency_id', $value);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param $value
+     * @return void
+     */
+    public function title(Builder $builder, $value): void
+    {
+        $builder->where('title', 'like', '%' . $value . '%');
+    }
+
+    /**
+     * @param Builder $builder
+     * @param $value
+     * @return void
+     */
+    public function bank(Builder $builder, $value): void
+    {
+        $builder->where('creditor', 'like', '%' . $value . '%');
     }
 
 }

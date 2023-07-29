@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Credit;
 
+use App\Enums\SortableEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\Dictionarable;
+use App\Http\Traits\Dictionarable;
 use App\Http\Filters\CreditFilter;
 use App\Http\Mutators\CreditMutator;
 use App\Http\Mutators\CreditSaldoMurtator;
@@ -31,9 +32,11 @@ class CreditController extends Controller {
      */
     public function index(CreditFilterRequest $request, ?string $sortable = null): View
     {
-        $sortable = in_array($sortable, ['till', 'percent', 'payment', 'amount', 'overpay'])
+        $sortable = in_array($sortable, array_map(function($e) {
+            return $e->value;
+        }, SortableEnum::cases()))
             ? $sortable
-            : 'till';
+            : SortableEnum::Till->value;
 
         $data = $request->validated();
 
@@ -44,7 +47,7 @@ class CreditController extends Controller {
         $_credits = Credit::where('owner_id', Auth::id())
             ->filter($filter)
             ->where('status', config('statuses.on'))
-            ->orderBy('currency')
+            ->orderBy('currency_id')
             ->orderBy('title')
             ->get();
 
@@ -69,9 +72,10 @@ class CreditController extends Controller {
         $saldo = (new CreditSaldoMurtator())($credits);
 
         return view('credit.index', [
-            'credits'  => $credits,
-            'saldo'    => $saldo,
-            'sortable' => $sortable,
+            'credits'    => $credits,
+            'saldo'      => $saldo,
+            'sortable'   => $sortable,
+            'currencies' => $this->walletCurrencies(),
         ]);
     }
 

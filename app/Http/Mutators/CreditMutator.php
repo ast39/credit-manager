@@ -5,7 +5,7 @@ namespace App\Http\Mutators;
 use App\Libs\Finance\Credit\CreditManager;
 use App\Libs\Finance\Credit\ResponseData;
 use App\Libs\Finance\Exceptions\RequestDataException;
-use App\Libs\PaymentType;
+use App\Enums\PaymentTypeEnum;
 use App\Models\Credit\Credit;
 
 class CreditMutator {
@@ -20,7 +20,7 @@ class CreditMutator {
         $credit = CreditManager::setCredit(
             $credit->title,
             $credit->currency,
-            PaymentType::ANNUITANT,
+            PaymentTypeEnum::Annuitant->value,
             $credit->start_date,
             $credit->payment_date,
             $credit->subject,

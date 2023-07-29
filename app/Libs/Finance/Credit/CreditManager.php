@@ -5,7 +5,8 @@ namespace App\Libs\Finance\Credit;
 use App\Libs\Finance\Exceptions\RequestDataException;
 use App\Libs\Finance\Exceptions\ResponseDataException;
 use App\Libs\Finance\DetailsTrait;
-use App\Libs\PaymentType;
+use App\Enums\PaymentTypeEnum;
+use App\Models\Wallet\WalletCurrency;
 
 /**
  * Фасад кредитов
@@ -18,7 +19,7 @@ class CreditManager {
      * Получить объект кредитного запроса
      *
      * @param string $title
-     * @param string $currency
+     * @param WalletCurrency $currency
      * @param int $payment_type
      * @param int|null $start_date
      * @param int|null $payment_date
@@ -29,11 +30,12 @@ class CreditManager {
      * @param float|null $payment
      * @param array|null $payments
      * @param int|null $credit_id
+     * @param string|null $creditor
      * @return RequestData|string
      */
     public static function setCredit(
         string   $title,
-        string   $currency,
+        WalletCurrency $currency,
         int      $payment_type,
         ?int     $start_date,
         ?int     $payment_date,
@@ -67,7 +69,7 @@ class CreditManager {
 
             $credit->amount = $creditObj->getAmount($credit);
 
-            if ($credit->payment_type == PaymentType::DIFFERENCE) {
+            if ($credit->payment_type == PaymentTypeEnum::Difference->value) {
                 $details = $this->monthlyStatementDiff($credit);
             } else {
                 $details = $this->monthlyStatement($credit);
@@ -95,7 +97,7 @@ class CreditManager {
 
             $credit->percent = $creditObj->getPercent($credit);
 
-            if ($credit->payment_type == PaymentType::DIFFERENCE) {
+            if ($credit->payment_type == PaymentTypeEnum::Difference->value) {
                 $details = $this->monthlyStatementDiff($credit);
             } else {
                 $details = $this->monthlyStatement($credit);
@@ -124,7 +126,7 @@ class CreditManager {
 
             $credit->period = $creditObj->getPeriod($credit);
 
-            if ($credit->payment_type == PaymentType::DIFFERENCE) {
+            if ($credit->payment_type == PaymentTypeEnum::Difference->value) {
                 $details = $this->monthlyStatementDiff($credit);
             } else {
                 $details = $this->monthlyStatement($credit);
@@ -164,7 +166,7 @@ class CreditManager {
                 throw new RequestDataException('Условия кредита невыполнимы. Период не может быть 0 и ниже.', 903);
             }
 
-            if ($credit->payment_type == PaymentType::DIFFERENCE) {
+            if ($credit->payment_type == PaymentTypeEnum::Difference->value) {
 
                 $credit->payment = round($credit->amount / $credit->period, 2);
                 $details         = $this->monthlyStatementDiff($credit);

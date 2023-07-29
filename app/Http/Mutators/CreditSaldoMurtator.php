@@ -9,11 +9,11 @@ class CreditSaldoMurtator {
         $saldo = [];
 
         foreach ($credits as $credit) {
-            if (!key_exists($credit->credit->currency, $saldo)) {
-                $saldo[$credit->credit->currency] = [];
+            if (!key_exists($credit->credit->currency->abbr, $saldo)) {
+                $saldo[$credit->credit->currency->abbr] = [];
             }
 
-            $saldo[$credit->credit->currency][] = $credit;
+            $saldo[$credit->credit->currency->abbr][] = $credit;
         }
 
         foreach ($saldo as $currency => $data) {

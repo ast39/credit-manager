@@ -37,7 +37,7 @@
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::AMOUNT) !!} {{ __('Сумма') }}</th>
-                                    <td class="text-end">{{ number_format($credit->credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::PERCENT) !!} {{ __('Процент') }}</th>
@@ -49,15 +49,15 @@
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::PAYMENT) !!} {{ __('Платеж') }}</th>
-                                    <td class="text-end">{{ number_format($credit->credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::SMILE_SAD) !!} {{ __('Переплата') }}</th>
-                                    <td class="text-end">{{ number_format($credit->overpay ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->overpay ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} {{ __('Сумма выплат') }}</th>
-                                    <td class="text-end">{{ number_format($credit->total_amount ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->total_amount ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -69,7 +69,7 @@
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <a href="{{ route('credit.index') }}" class="btn btn-secondary me-1 rounded">{!! Icons::get(Icons::RETURN) !!}&nbsp;{{ __('Назад') }}</a>
                                 <a href="{{ route('credit.edit', $credit->credit->credit_id) }}" class="btn btn-warning me-1 rounded">{!! Icons::get(Icons::EDIT) !!}&nbsp;{{ __('Изменить') }}</a>
-                                <a href="{{ route('credit.payment.create', $credit->credit->credit_id) }}" class="btn btn-primary">{!! Icons::get(Icons::TRANSACTIONS) !!}&nbsp;{{ __('Внести платеж') }}</a>
+                                <a href="{{ route('credit.payment.create', $credit->credit->credit_id) }}" class="btn btn-primary me-1 rounded">{!! Icons::get(Icons::TRANSACTIONS) !!}&nbsp;{{ __('Внести платеж') }}</a>
                                 <button type="submit" title="Delete" onclick="return confirm('Вы уверены, что хотите удалить кредит?')" class="btn btn-danger rounded">{!! Icons::get(Icons::DELETE) !!}&nbsp;{{ __('Удалить') }}</button>
                             </div>
                         </form>
@@ -112,7 +112,7 @@
                                                         <td data-label="{{ __('Проценты') }}" class="text-end">{{ number_format($row['payment_percent'], 0, '.', ' ') }}</td>
                                                         <td data-label="{{ __('Тело') }}" class="text-end">{{ number_format($row['payment_body'], 0, '.', ' ') }}</td>
                                                         <td data-label="{{ __('Остаток') }}" class="text-end">{{ number_format($row['outset_balance'], 0, '.', ' ') }}</td>
-                                                        <td title="{{ $row['note'] ?? '' }}" data-label="{{ __('Оплата') }}" class="text-end {{ Helper::getPaymentTextColor($row['date_time'], $row['status']) }}"><i class="{{ Helper::getPaymentIcon($row['date_time'], $row['status']) }}"></i></td>
+                                                        <td data-label="{{ __('Оплата') }}" class="text-end {{ Helper::getPaymentTextColor($row['date_time'], $row['status']) }}"><i class="{{ Helper::getPaymentIcon($row['date_time'], $row['status']) }}"></i></td>
                                                     </tr>
 
                                                     @php
@@ -137,11 +137,11 @@
                             <tbody>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::WAS_PAYED) !!} {{ __('Выплачено долга (План)') }}</th>
-                                    <td class="text-end">{{ number_format($credit->balance_payed ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->balance_payed ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::WILL_PAY) !!} {{ __('Остаток долга (План)') }}</th>
-                                    <td class="text-end">{{ number_format($credit->balance_owed ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->balance_owed ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::CHECK) !!} {{ __('Сделано платежей') }}</th>
@@ -153,19 +153,19 @@
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} {{ __('Выплачено всего') }}</th>
-                                    <td class="text-end">{{ number_format($payed_percent + $payed_body, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($payed_percent + $payed_body, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::SMILE_SAD) !!} {{ __('Выплачено процентов') }}</th>
-                                    <td class="text-end">{{ number_format($payed_percent, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($payed_percent, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::SMILE_HAPPY) !!} {{ __('Выплачено долга') }}</th>
-                                    <td class="text-end">{{ number_format($payed_body, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($payed_body, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::BALANCE_CASH) !!} {{ __('Остаток долга') }}</th>
-                                    <td class="text-end">{{ number_format($credit->credit->amount - $payed_body, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                    <td class="text-end">{{ number_format($credit->credit->amount - $payed_body, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
                             </tbody>
                         </table>

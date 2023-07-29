@@ -3,6 +3,7 @@
 namespace App\Libs\Finance\Credit;
 
 use App\Libs\Finance\Exceptions\RequestDataException;
+use App\Models\Wallet\WalletCurrency;
 
 /**
  * Объект кредита - запрос
@@ -16,7 +17,7 @@ class RequestData {
     public string $title;
 
     # Валюта кредита
-    public string $currency;
+    public WalletCurrency $currency;
 
     # Тип платежа
     public string $payment_type;
@@ -51,7 +52,7 @@ class RequestData {
 
     /**
      * @param string $title
-     * @param string $currency
+     * @param WalletCurrency $currency
      * @param int $payment_type
      * @param int|null $start_date
      * @param int|null $payment_date
@@ -67,7 +68,7 @@ class RequestData {
      */
     public function __construct(
         string  $title,
-        string  $currency,
+        WalletCurrency $currency,
         int     $payment_type,
         ?int    $start_date   = null,
         ?int    $payment_date = null,

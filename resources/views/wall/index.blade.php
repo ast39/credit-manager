@@ -35,31 +35,31 @@
                                         <td data-label="{{ __('Дата') }}" class="text-start">{{ $credit['date'] }}</td>
                                         <td data-label="{{ __('Название') }}" class="text-start"><a href="{{ route('credit.show', $credit['credit_id']) }}">{{ $credit['title'] }}</a></td>
                                         <td data-label="{{ __('Банк') }}" class="text-start">{{ $credit['creditor'] }}</td>
-                                        <td data-label="{{ __('Платеж') }}" class="text-end">{{ number_format($credit['payment'], 0, '.', ' ') }} {{ $credit['currency'] }}</td>
+                                        <td data-label="{{ __('Платеж') }}" class="text-end">{{ number_format($credit['payment'], 0, '.', ' ') }} {{ $credit['currency']['abbr'] }}</td>
                                         <td data-label="{{ __('Статус') }}" class="text-end {{ Helper::getPaymentTextColor($credit['date_time'], $credit['status']) }}"><i class="{{ Helper::getPaymentIcon($credit['date_time'], $credit['status']) }}"></i></td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="5" class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">У Вас не текущих кредитов</td></tr>
+                                    <tr><td colspan="5" class="text-center p-2 mb-2 mt-2 bg-light bg-gradient text-success rounded">У Вас не текущих кредитов</td></tr>
                                 @endforelse
 
                                 <tr><td colspan="5">&nbsp&nbsp;</td></tr>
                                 <tr>
-                                    <td class="text-secondary" colspan="2">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} Финансовая нагрузка:</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB';}))), 0, '.', ' ') }} RUB</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD';}))), 0, '.', ' ') }} USD</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR';}))), 0, '.', ' ') }} EUR</td>
+                                    <td class="text-secondary text-start" colspan="2">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} Финансовая нагрузка:</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB';}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD';}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR';}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-success" colspan="2">{!! Icons::get(Icons::SMILE_HAPPY) !!} Выплачено в этом месяце:</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
+                                    <td class="text-success text-start" colspan="2">{!! Icons::get(Icons::SMILE_HAPPY) !!} Выплачено в этом месяце:</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-danger" colspan="2">{!! Icons::get(Icons::SMILE_SAD) !!} Осталось выплатить в этом месяце:</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
-                                    <td class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
+                                    <td class="text-danger text-start" colspan="2">{!! Icons::get(Icons::SMILE_SAD) !!} Осталось выплатить в этом месяце:</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -2,8 +2,9 @@
 
 namespace App\Models\Credit;
 
-use App\Models\Traits\Filterable;
+use App\Http\Traits\Filterable;
 use App\Models\User;
+use App\Models\Wallet\WalletCurrency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,18 @@ class Credit extends Model {
 
 
     /**
+     * Валюта кредита
+     *
+     * @return BelongsTo
+     */
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(WalletCurrency::class, 'currency_id', 'currency_id');
+    }
+
+    /**
+     * Хозяин кредита
+     *
      * @return BelongsTo
      */
     public function owner(): BelongsTo
@@ -34,6 +47,8 @@ class Credit extends Model {
     }
 
     /**
+     * Платежи по кредиту
+     *
      * @return HasMany
      */
     public function payments(): HasMany
@@ -45,7 +60,8 @@ class Credit extends Model {
 
     protected $with = [
         'owner',
-        'payments'
+        'payments',
+        'currency',
     ];
 
     protected $casts = [
@@ -54,8 +70,9 @@ class Credit extends Model {
     ];
 
     protected $fillable = [
-        'credit_id', 'currency', 'owner_id', 'title', 'creditor', 'amount', 'percent', 'period', 'payment',
-        'start_date', 'payment_date', 'status', 'created_at', 'updated_at',
+        'credit_id', 'currency_id', 'owner_id', 'title', 'creditor',
+        'amount', 'percent', 'period', 'payment', 'start_date', 'payment_date', 'status',
+        'created_at', 'updated_at',
     ];
 
     protected $hidden = [];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Mutators;
 
-use App\Libs\CreditSubject;
+use App\Enums\CreditSubjectEnum;
 use App\Libs\Finance\Credit\CreditManager;
 use App\Libs\Finance\Credit\ResponseData;
 use App\Libs\Finance\Exceptions\RequestDataException;
@@ -33,9 +33,9 @@ class CreditCalculateMutator {
 
         return match($credit->subject) {
 
-            CreditSubject::AMOUNT  => (new CreditManager())->findAmount($credit),
-            CreditSubject::PERCENT => (new CreditManager())->findPercent($credit),
-            CreditSubject::PERIOD  => (new CreditManager())->findPeriod($credit),
+            CreditSubjectEnum::Amount->value  => (new CreditManager())->findAmount($credit),
+            CreditSubjectEnum::Percent->value => (new CreditManager())->findPercent($credit),
+            CreditSubjectEnum::Period->value  => (new CreditManager())->findPeriod($credit),
 
             default   => (new CreditManager())->findPayment($credit),
         };

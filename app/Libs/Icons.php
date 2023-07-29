@@ -73,7 +73,6 @@ class Icons {
     const WILL_PAY       = 'bi bi-hourglass-bottom';
 
 
-
     /**
      * @param string $class
      * @return string

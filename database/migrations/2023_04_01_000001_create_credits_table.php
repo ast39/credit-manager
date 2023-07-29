@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CurrencyEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,28 +13,40 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('credits', function (Blueprint $table) {
-            $table->id('credit_id');
+            $table->id('credit_id')
+                ->comment('ID кредита');
+
             $table->unsignedBigInteger('owner_id')
                 ->comment('Хозяин кредита');
+
             $table->string('title', 64)
                 ->comment('Название кредита');
-            $table->string('currency', 4)
+
+            $table->unsignedBigInteger('currency_id')
                 ->comment('Валюта кредита')
-                ->default('RUB');
+                ->default(CurrencyEnum::RUB->value);
+
             $table->string('creditor', 64)
                 ->comment('Банк эмитент');
+
             $table->unsignedFloat('amount',11, 2)
                 ->comment('Сумма кредита');
+
             $table->unsignedFloat('percent', 9, 4)
                 ->comment('Процент по кредиту');
+
             $table->unsignedInteger('period')
                 ->comment('Срок кредита');
+
             $table->unsignedFloat('payment', 11, 2)
                 ->comment('Платеж по  кредиту');
+
             $table->unsignedInteger('start_date')
                 ->comment('Дата открытия кредита');
+
             $table->unsignedInteger('payment_date')
                 ->comment('День платежа по кредиту');
+
             $table->unsignedTinyInteger('status')
                 ->default(1);
 

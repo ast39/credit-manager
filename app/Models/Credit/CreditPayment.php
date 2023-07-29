@@ -2,7 +2,7 @@
 
 namespace App\Models\Credit;
 
-use App\Models\Traits\Filterable;
+use App\Http\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Credit;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\Dictionarable;
+use App\Http\Traits\Dictionarable;
 use App\Http\Mutators\CreditCalculateMutator;
 use App\Http\Requests\Credit\CreditCalcRequest;
 use App\Libs\Finance\Credit\ResponseData;

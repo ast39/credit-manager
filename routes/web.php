@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\{
     Route, Auth
 };
 
-use App\Http\Controllers\WallController;
+use App\Http\Controllers\{
+    WallController, DemoController
+};
 
 
 Route::get('/', function () {
@@ -17,6 +19,9 @@ Route::get('/', function () {
 
 # События
 Route::get('wall', WallController::class)->middleware('auth')->name('wall.index');
+
+# Демо доступ
+Route::get('demo', DemoController::class)->name('demo.index');
 
 # Кредит
 Route::group(['prefix' => 'credit'], function() {
@@ -40,7 +45,7 @@ Route::group(['prefix' => 'credit'], function() {
 });
 
 # Кредит
-Route::group(['prefix' => 'credit', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => 'credit', 'middleware' => ['auth', 'verified']], function() {
 
     # Кредиты
     Route::group(['prefix' => 'item'], function () {
@@ -77,4 +82,4 @@ Route::group(['prefix' => 'credit', 'middleware' => ['auth']], function() {
     });
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);

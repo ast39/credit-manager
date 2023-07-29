@@ -4,6 +4,7 @@ namespace App\Libs\Finance\Fraud;
 
 use App\Libs\Finance\Exceptions\RequestDataException;
 use App\Libs\Finance\Exceptions\ResponseDataException;
+use App\Models\Wallet\WalletCurrency;
 
 /**
  * Фасад проверки на фрод
@@ -12,7 +13,7 @@ class FraudManager {
 
     /**
      * @param string $title
-     * @param string $currency
+     * @param WalletCurrency $currency
      * @param float $amount
      * @param float $percent
      * @param int $period
@@ -21,7 +22,7 @@ class FraudManager {
      */
     public static function setCredit(
         string $title,
-        string $currency,
+        WalletCurrency $currency,
         float  $amount,
         float  $percent,
         int    $period,

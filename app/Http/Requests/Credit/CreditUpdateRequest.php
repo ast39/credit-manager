@@ -26,7 +26,7 @@ class CreditUpdateRequest extends FormRequest {
         return [
 
             'title'        => 'string',
-            'currency'     => 'string',
+            'currency_id'  => 'integer',
             'creditor'     => 'string',
             'start_date'   => 'string',
             'payment_date' => 'string',

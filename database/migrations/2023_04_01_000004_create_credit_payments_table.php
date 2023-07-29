@@ -12,14 +12,20 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('credit_payments', function (Blueprint $table) {
-            $table->id('payment_id');
+            $table->id('payment_id')
+                ->comment('ID платежа');
+
             $table->unsignedBigInteger('credit_id')
                 ->comment('Погашаемый кредит');
+
             $table->float('amount', 11, 2)
                 ->comment('Сумма платежа');
+
             $table->tinyText('note')
                 ->nullable()
+                ->default(NULL)
                 ->comment('Примечание к пополнению');
+
             $table->unsignedTinyInteger('status')
                 ->default(1);
 

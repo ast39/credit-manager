@@ -26,7 +26,7 @@ class CreditCheckRequest extends FormRequest {
         return [
 
             'title'        => 'required|string',
-            'currency'     => 'required|string',
+            'currency_id'  => 'required|integer',
             'amount'       => [
                 "required",
                 "regex:/^\d+(\.\d{1,2})?$/",

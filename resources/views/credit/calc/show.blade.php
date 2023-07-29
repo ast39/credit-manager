@@ -1,5 +1,5 @@
 @php
-    use App\Libs\CreditSubject;
+    use App\Enums\CreditSubjectEnum;
     use App\Libs\Icons;
 @endphp
 
@@ -35,32 +35,32 @@
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::BALANCE) !!} {{ __('Сумма') }}</th>
-                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubject::AMOUNT ? 'text-primary' : '' }}">{{ number_format($info->credit->amount ?? 0, 0, '.', ' ') }} {{ $info->credit->currency }}</span></td>
+                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubjectEnum::Amount->value ? 'text-primary' : '' }}">{{ number_format($info->credit->amount ?? 0, 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::PERCENT) !!} {{ __('Процент') }}</th>
-                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubject::PERCENT ? 'text-primary' : '' }}">{{ number_format($info->credit->percent ?? 0, 2, '.', ' ') }}%</span></td>
+                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubjectEnum::Percent->value ? 'text-primary' : '' }}">{{ number_format($info->credit->percent ?? 0, 2, '.', ' ') }}%</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::PERIOD) !!} {{ __('Срок') }}</th>
-                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubject::PERIOD ? 'text-primary' : '' }}">{{ $info->credit->period ?? 0 }} {{ __('(в месяцах)') }}</span></td>
+                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubjectEnum::Period->value ? 'text-primary' : '' }}">{{ $info->credit->period ?? 0 }} {{ __('(в месяцах)') }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::BALANCE_CASH) !!} {{ __('Платеж') }}</th>
-                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubject::PAYMENT ? 'text-primary' : '' }}">{{ number_format($info->credit->payment ?? 0, 0, '.', ' ') }} {{ $info->credit->currency }}</span></td>
+                                                    <td class="text-end"><span class="{{ $info->credit->subject == CreditSubjectEnum::Payment->value ? 'text-primary' : '' }}">{{ number_format($info->credit->payment ?? 0, 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</span></td>
                                                 </tr>
                                                 <tr><td colspan="2">&nbsp&nbsp;</td></tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::SMILE_HAPPY) !!} {{ __('Тело кредита') }}</th>
-                                                    <td class="text-end"><span class="text-success">{{ number_format($info->payments ?? 0, 0, '.', ' ') }} {{ $info->credit->currency }}</span></td>
+                                                    <td class="text-end"><span class="text-success">{{ number_format($info->payments ?? 0, 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::SMILE_SAD) !!} {{ __('Проценты по кредиту') }}</th>
-                                                    <td class="text-end"><span class="text-danger">{{ number_format($info->overpay ?? 0, 0, '.', ' ') }} {{ $info->credit->currency }}</span></td>
+                                                    <td class="text-end"><span class="text-danger">{{ number_format($info->overpay ?? 0, 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-start">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} {{ __('Итого выплат') }}</th>
-                                                    <td class="text-end"><span class="text-primary">{{ number_format($info->total_amount ?? 0, 0, '.', ' ') }} {{ $info->credit->currency }}</span></td>
+                                                    <td class="text-end"><span class="text-primary">{{ number_format($info->total_amount ?? 0, 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -93,11 +93,11 @@
                                             @forelse($info->details as $row)
                                                 <tr>
                                                     <td data-label="#" class="text-center">{{ $loop->iteration }}</td>
-                                                    <td data-label="Баланс" class="text-end">{{ number_format($row['inset_balance'], 0, '.', ' ') }} {{ $info->credit->currency }}</td>
-                                                    <td data-label="Платеж" class="text-end">{{ number_format($row['credit_payment'], 0, '.', ' ') }} {{ $info->credit->currency }}</td>
-                                                    <td data-label="Проценты" class="text-end">{{ number_format($row['payment_percent'], 0, '.', ' ') }} {{ $info->credit->currency }}</td>
-                                                    <td data-label="Тело" class="text-end">{{ number_format($row['payment_body'], 0, '.', ' ') }} {{ $info->credit->currency }}</td>
-                                                    <td data-label="Остаток" class="text-end">{{ number_format($row['outset_balance'], 0, '.', ' ') }} {{ $info->credit->currency }}</td>
+                                                    <td data-label="Баланс" class="text-end">{{ number_format($row['inset_balance'], 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</td>
+                                                    <td data-label="Платеж" class="text-end">{{ number_format($row['credit_payment'], 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</td>
+                                                    <td data-label="Проценты" class="text-end">{{ number_format($row['payment_percent'], 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</td>
+                                                    <td data-label="Тело" class="text-end">{{ number_format($row['payment_body'], 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</td>
+                                                    <td data-label="Остаток" class="text-end">{{ number_format($row['outset_balance'], 0, '.', ' ') }} {{ $info->credit->currency->abbr }}</td>
                                                 </tr>
                                             @empty
                                                 <div class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">{{ __('Расчет не удался') }}</div>
@@ -114,9 +114,9 @@
 
                         <div class="d-grid gap-2 d-md-flex mt-3 justify-content-md-center">
                             @auth()
-                                <a href="{{ route('credit.calc.index') }}" class="btn btn-secondary">{!! Icons::get(Icons::RETURN) !!}&nbsp;{{ __('Назад') }}</a>
+                                <a href="{{ route('credit.calc.index') }}" class="btn btn-secondary me-1 rounded">{!! Icons::get(Icons::RETURN) !!}&nbsp;{{ __('Назад') }}</a>
                             @endauth
-                            <a href="{{ route('credit.calc.create') }}" class="btn btn-primary me-1">{!! Icons::get(Icons::CALCULATE) !!}&nbsp;{{ __('Рассчитать новый кредит') }}</a>
+                            <a href="{{ route('credit.calc.create') }}" class="btn btn-primary rounded">{!! Icons::get(Icons::CALCULATE) !!}&nbsp;{{ __('Рассчитать новый кредит') }}</a>
                         </div>
 
                     </div>

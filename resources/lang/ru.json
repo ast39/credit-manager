@@ -7,5 +7,27 @@
     "Forgot Your Password?": "Забыли пароль?",
     "Name": "Имя",
     "Confirm Password": "Повторите пароль",
-    "Logout": "Выход"
+    "Logout": "Выход",
+
+    "Verify Email Address": "Подтверждение почтового адреса",
+    "Please click the button below to verify your email address.": "Нажмите кнопку ниже, чтобы подтвердить свой адрес электронной почты.",
+    "If you did not create an account, no further action is required.": "Если вы не создавали учетную запись, никаких дальнейших действий не требуется.",
+
+    "Send Password Reset Link": "Отправить ссылку для сброса пароля",
+    "Whoops!": "Упс...",
+    "Hello!": "Добрый день!",
+    "Regards": "С уважением",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Если у Вас возникли трудности при нажатии кнопки, то скопируйте ссылку ниже и перейдите по ней в браузере\n",
+
+    "Reset Password Notification": "Уведомление о сбросе пароля",
+    "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для вашей учетной записи.",
+    "Reset Password": "Сбросить пароль",
+    "This password reset link will expire in :count minutes.": "Срок действия этой ссылки для сброса пароля истекает через :count минут",
+    "If you did not request a password reset, no further action is required.": "Если вы не запрашивали сброс пароля, никаких дальнейших действий не требуется.",
+
+    "Verify Your Email Address": "Подтвердите свой адрес электронной почты",
+    "A fresh verification link has been sent to your email address.": "На ваш электронный адрес отправлена новая ссылка для подтверждения.",
+    "Before proceeding, please check your email for a verification link.": "Прежде чем продолжить, проверьте почту на наличие ссылки для подтверждения.",
+    "If you did not receive the email": "Если вы не получили письмо",
+    "click here to request another": "нажмите здесь, чтобы запросить другое"
 }

@@ -2,7 +2,7 @@
 
 namespace App\Libs\Finance\Credit;
 
-use App\Libs\CreditSubject;
+use App\Enums\CreditSubjectEnum;
 use App\Libs\Helper;
 
 /**
@@ -69,13 +69,13 @@ class ResponseData {
 
         switch ($this->credit->subject) {
 
-            case CreditSubject::AMOUNT  : $this->credit->amount  = reset($this->details)['inset_balance'] ?? null;
+            case CreditSubjectEnum::Amount->value  : $this->credit->amount  = reset($this->details)['inset_balance'] ?? null;
                 break;
-            case CreditSubject::PERCENT : $this->credit->percent = reset($this->details)['payment_percent'] / $this->credit->amount  * 100 * 12;
+            case CreditSubjectEnum::Percent->value : $this->credit->percent = reset($this->details)['payment_percent'] / $this->credit->amount  * 100 * 12;
                 break;
-            case CreditSubject::PERIOD  : $this->credit->period  = count($details) ?? null;
+            case CreditSubjectEnum::Period->value  : $this->credit->period  = count($details) ?? null;
                 break;
-            case CreditSubject::PAYMENT : $this->credit->payment = reset($this->details)['credit_payment'] ?? null;
+            case CreditSubjectEnum::Payment->value : $this->credit->payment = reset($this->details)['credit_payment'] ?? null;
                 break;
 
             default        :

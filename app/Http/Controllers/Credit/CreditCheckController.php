@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Credit;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\Dictionarable;
+use App\Http\Traits\Dictionarable;
 use App\Http\Mutators\CreditCheckMutator;
 use App\Http\Requests\Credit\CreditCheckRequest;
 use App\Libs\Finance\Exceptions\RequestDataException;

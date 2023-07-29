@@ -28,10 +28,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="currency" class="form-label required">{!! Icons::get(Icons::CURRENCY) !!} {{ __('Валюта') }}</label>
-                                <select class="form-select" id="currency" name="currency" aria-describedby="currencyHelp">
+                                <label for="currency_id" class="form-label required">{!! Icons::get(Icons::CURRENCY) !!} {{ __('Валюта') }}</label>
+                                <select class="form-select" id="currency_id" name="currency_id" aria-describedby="currencyHelp">
                                     @forelse($currencies as $currency)
-                                        <option {{ $credit->currency == $currency->abbr ? 'selected': '' }} value="{{ $currency->abbr }}">{{ $currency->abbr }}</option>
+                                        <option {{ $credit->currency == $currency->abbr ? 'selected': '' }} value="{{ $currency->currency_id }}">{{ $currency->abbr }}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -58,7 +58,7 @@
                                 <label for="creditAmount" class="form-label required">{!! Icons::get(Icons::BALANCE) !!} {{ __('Сумма') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditAmount" name="amount" value="{{ $credit->amount ?? '' }}" placeholder="250000">
-                                    <span class="input-group-text currency">{{ $credit->currency }}</span>
+                                    <span class="input-group-text bg-light currency">{{ $credit->currency->abbr }}</span>
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                 <label for="creditPercent" class="form-label required">{!! Icons::get(Icons::PERCENT) !!} {{ __('Процент') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditPercent" name="percent" value="{{ $credit->percent ?? '' }}" placeholder="14.9">
-                                    <span class="input-group-text">%</span>
+                                    <span class="input-group-text bg-light">%</span>
                                 </div>
                             </div>
 
@@ -74,7 +74,7 @@
                                 <label for="creditPeriod" class="form-label required">{!! Icons::get(Icons::PERIOD) !!} {{ __('Срок') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditPeriod" name="period" value="{{ $credit->period ?? '' }}" placeholder="36">
-                                    <span class="input-group-text">{{ __('месяцев') }}</span>
+                                    <span class="input-group-text bg-light">{{ __('месяцев') }}</span>
                                 </div>
                             </div>
 
@@ -82,7 +82,7 @@
                                 <label for="creditPayment" class="form-label required">{!! Icons::get(Icons::BALANCE_START) !!} {{ __('Платеж') }}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="creditPayment" name="payment" value="{{ $credit->payment ?? '' }}" placeholder="8654.09" aria-describedby="creditPaymentHelp">
-                                    <span class="input-group-text currency">{{ $credit->currency }}</span>
+                                    <span class="input-group-text bg-light currency">{{ $credit->currency->abbr }}</span>
                                 </div>
                                 <div id="creditPaymentHelp" class="form-text mb-3">{{ __('Ваш ежемесячный платеж по кредиту') }}</div>
                             </div>

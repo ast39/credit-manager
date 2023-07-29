@@ -43,7 +43,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="me-2 mb-2" src="{{ asset('/logo.png') }}" width="30" height="30" />
-                    {{ config('app.name', 'Laravel') }}
+                    {{ Auth::check() ? Auth::user()->name : config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -76,6 +76,12 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
+                            @if (Route::has('demo.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('demo.index') }}">{{ __('Демо доступ') }}</a>
+                                </li>
+                            @endif
+
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -93,25 +99,16 @@
                                     <a class="nav-link" href="{{ route('wall.index') }}">{!! Icons::get(Icons::CALENDAR) !!} {{ __('События') }}</a>
                                 </li>
                             @endif
-
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {!! Icons::get(Icons::USER) !!} {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    @if (Route::has('credit.index'))
-                                        <a class="dropdown-item" href="{{ route('credit.index') }}">{!! Icons::get(Icons::CREDITS) !!}  {{ __('Кредиты') }}</a>
-                                    @endif
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {!! Icons::get(Icons::LOGOUT) !!} {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                            @if (Route::has('credit.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('credit.index') }}">{!! Icons::get(Icons::CREDITS) !!} {{ __('Мои кредиты') }}</a>
+                                </li>
+                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{!! Icons::get(Icons::LOGOUT) !!} {{ __('Logout') }}</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>
@@ -130,7 +127,7 @@
         <section class="">
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
                             <i class="fas fa-gem me-3"></i>MyFinances
                         </h6>
@@ -138,11 +135,11 @@
                             Это базовая версия финансового приложение FinanceApp, разработанное как PWA
                             (Progressive Web Application).
                             <br /><br />
-                            Актуальная версия приложения 1.0.1
+                            Актуальная версия приложения {{ config('app.version') }}
                         </p>
                     </div>
 
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
                             Открытые модули
                         </h6>
@@ -151,17 +148,7 @@
                         <p>Кредитный календарь</p>
                     </div>
 
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Закрытые модули
-                        </h6>
-                        <p>Домашняя бухгалтерия</p>
-                        <p>Учет расходов</p>
-                        <p>Финансовый менеджер</p>
-                        <p>Калькулятор вкладов</p>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <div class="col-md-5 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Контакты</h6>
                         <p><i class="fas fa-home me-3">Адрес: </i> Россия, Калининград, 236048</p>
                         <p><i class="fas fa-envelope me-3">Email:</i> alexandr.status@gmail.com</p>
@@ -177,15 +164,25 @@
         </div>
     </footer>
 
-@stack('js')
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-<script src="{{ asset('/sw.js') }}"></script>
-<script>
-    if (!navigator.serviceWorker.controller) {
-        navigator.serviceWorker.register("/sw.js").then(function (reg) {
-            console.log("Service Worker был зарегистрирован для области действия: " + reg.scope);
-        });
-    }
-</script>
+    <script>
+        var token = '{{ csrf_token() }}';
+    </script>
+
+    <script type="text/javascript" src="{{ asset('/js/dselect.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/app.js?v=' . time()) }}"></script>
+
+    <!-- JS grubber -->
+    @stack('js')
+
+    <script src="{{ asset('/sw.js') }}"></script>
+    <script>
+        if (!navigator.serviceWorker.controller) {
+            navigator.serviceWorker.register("/sw.js").then(function (reg) {
+                console.log("Service Worker был зарегистрирован для области действия: " + reg.scope);
+            });
+        }
+    </script>
 </body>
 </html>

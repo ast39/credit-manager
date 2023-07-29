@@ -25,19 +25,19 @@
                         <div class="card-title">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'till' ? 'active' : '' }}" href="{{ route('credit.index', 'till') }}" >{{ __('Дней до платежа') }}</a>
+                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'till' ? 'active' : '' }}" href="{{ route('credit.index', 'till') . '?'. request()->getQueryString() }}" >{{ __('Дней до платежа') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'percent' ? 'active' : '' }}" href="{{ route('credit.index', 'percent') }}">{{ __('По проценту') }}</a>
+                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'percent' ? 'active' : '' }}" href="{{ route('credit.index', 'percent') . '?' . request()->getQueryString() }}">{{ __('По проценту') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'amount' ? 'active' : '' }}" href="{{ route('credit.index', 'amount') }}">{{ __('По сумме') }}</a>
+                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'amount' ? 'active' : '' }}" href="{{ route('credit.index', 'amount') . '?' . request()->getQueryString() }}">{{ __('По сумме') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'payment' ? 'active' : '' }}" href="{{ route('credit.index', 'payment') }}">{{ __('По платежу') }}</a>
+                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'payment' ? 'active' : '' }}" href="{{ route('credit.index', 'payment') . '?' . request()->getQueryString() }}">{{ __('По платежу') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'overpay' ? 'active' : '' }}" href="{{ route('credit.index', 'overpay') }}" >{{ __('По переплате') }}</a>
+                                    <a class="nav-link text-decoration-none text-primary {{ $sortable == 'overpay' ? 'active' : '' }}" href="{{ route('credit.index', 'overpay') . '?' . request()->getQueryString() }}" >{{ __('По переплате') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -63,9 +63,9 @@
                                         <td data-label="{{ __('Дней до платежа') }}" class="text-center {{ $credit->days_to <= 5 ? 'text-danger' : ($credit->days_to <= 10 ? 'text-warning' : 'text-success') }}">
                                             {{ Helper::paymentStatus($credit->days_to) }}
                                         </td>
-                                        <td data-label="{{ __('Сумма платежа') }}" class="text-end">{{ number_format($credit->credit->payment, 0, '.', ' ')}} {{ $credit->credit->currency }}</td>
-                                        <td data-label="{{ __('Выплачено долга') }}" class="text-end">{{ number_format($credit->balance_payed, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
-                                        <td data-label="{{ __('Остаток') }}" class="text-end">{{ number_format($credit->balance_owed, 0, '.', ' ') }} {{ $credit->credit->currency }}</td>
+                                        <td data-label="{{ __('Сумма платежа') }}" class="text-end">{{ number_format($credit->credit->payment, 0, '.', ' ')}} {{ $credit->credit->currency->abbr }}</td>
+                                        <td data-label="{{ __('Выплачено долга') }}" class="text-end">{{ number_format($credit->balance_payed, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
+                                        <td data-label="{{ __('Остаток') }}" class="text-end">{{ number_format($credit->balance_owed, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                         <td data-label="{{ __('Действия') }}" class="text-end">
                                             <form method="post" action="{{ route('credit.destroy', $credit->credit->credit_id) }}">
                                                 @csrf
@@ -81,7 +81,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">{{ __('У вас нет текущих кредитов') }}</td>
+                                        <td colspan="8" class="text-center p-2 mb-2 mt-2 bg-light bg-gradient text-success rounded">{{ __('У вас нет текущих кредитов') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -89,7 +89,7 @@
 
                         {{-- Кнопка добавления кредита --}}
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a href="{{ route('credit.create') }}" class="btn btn-primary rounded">{!! Icons::get(Icons::CREATE) !!}&nbsp;{{ __('Добавить кредит') }}</a>
+                            <a href="{{ route('credit.create') }}" class="btn btn-primary rounded">{!! Icons::get(Icons::CREATE) !!}&nbsp&nbsp;{{ __('Добавить кредит') }}</a>
                         </div>
 
                         {{-- Сальдо по кредитам --}}
@@ -117,7 +117,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">{{ __('Кредитов не найдено') }}</td>
+                                        <td colspan="6" class="text-center p-2 mb-2 bg-light bg-gradient text-success rounded">{{ __('Кредитов не найдено') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Credit;
 
-use App\Libs\CreditSubject;
+use App\Enums\CreditSubjectEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreditCalcRequest extends FormRequest {
@@ -28,21 +28,21 @@ class CreditCalcRequest extends FormRequest {
 
             'title'        => 'required|string',
             'subject'      => 'required|string',
-            'currency'     => 'required|string',
+            'currency_id'  => 'required|integer',
             'amount'       => [
-                "required_if:subject, !=, " . CreditSubject::AMOUNT,
+                "required_if:subject, !=, " . CreditSubjectEnum::Amount->value,
                 "regex:/^\d+(\.\d{1,2})?$/",
             ],
             'percent'      => [
-                "required_if:subject, !=, " . CreditSubject::PERCENT,
+                "required_if:subject, !=, " . CreditSubjectEnum::Percent->value,
                 "regex:/^\d+(\.\d{1,2})?$/",
             ],
             'period'       => [
-                "required_if:subject, !=, " . CreditSubject::PERIOD,
+                "required_if:subject, !=, " . CreditSubjectEnum::Period->value,
                 "integer",
             ],
             'payment'      => [
-                "required_if:subject, !=, " . CreditSubject::PAYMENT,
+                "required_if:subject, !=, " . CreditSubjectEnum::Payment->value,
                 "regex:/^\d+(\.\d{1,2})?$/",
             ],
             'payment_type' => 'required|integer',

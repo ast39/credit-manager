@@ -25,7 +25,9 @@ class CreditFilterRequest extends FormRequest {
     {
         return [
 
-            'currency' => 'nullable|string',
+            'currency' => 'nullable|integer',
+            'title'    => 'nullable|string',
+            'bank'     => 'nullable|string',
         ];
     }
 }

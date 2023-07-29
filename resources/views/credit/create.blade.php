@@ -1,5 +1,6 @@
 @php
     use App\Libs\Icons;
+    use App\Enums\CurrencyEnum;
 @endphp
 
 @extends('layouts.app')
@@ -29,10 +30,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="currency" class="form-label required">{!! Icons::get(Icons::CURRENCY) !!} {{ __('Валюта') }}</label>
-                                <select class="form-select" id="currency" name="currency" aria-describedby="currencyHelp">
+                                <label for="currency_id" class="form-label required">{!! Icons::get(Icons::CURRENCY) !!} {{ __('Валюта') }}</label>
+                                <select class="form-control form-select" id="currency_id" name="currency_id" aria-describedby="currencyHelp">
                                     @forelse($currencies as $currency)
-                                        <option {{ old('currency') == $currency->abbr ? 'selected': '' }} value="{{ $currency->abbr }}">{{ $currency->abbr }}</option>
+                                        <option {{ old('currency') == $currency->abbr ? 'selected': '' }} value="{{ $currency->currency_id }}">{{ $currency->abbr }}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -68,7 +69,7 @@
                                 <label for="creditAmount" class="form-label required">{!! Icons::get(Icons::BALANCE) !!} {{ __('Сумма') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditAmount" name="amount" placeholder="250000" value="{{ old('amount') }}">
-                                    <span class="input-group-text currency">{{ __('RUB') }}</span>
+                                    <span class="input-group-text currency bg-light">{{ CurrencyEnum::RUB->name }}</span>
                                 </div>
                                 @error('amount')
                                     <p class="text-danger mt-2">{{ $message }}</p>
@@ -79,7 +80,7 @@
                                 <label for="creditPercent" class="form-label required">{!! Icons::get(Icons::PERCENT) !!} {{ __('Процент') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditPercent" name="percent" placeholder="14.9" value="{{ old('percent') }}">
-                                    <span class="input-group-text">%</span>
+                                    <span class="input-group-text bg-light">%</span>
                                 </div>
                                 @error('percent')
                                     <p class="text-danger mt-2">{{ $message }}</p>
@@ -90,7 +91,7 @@
                                 <label for="creditPeriod" class="form-label required">{!! Icons::get(Icons::PERIOD) !!} {{ __('Срок') }}</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="creditPeriod" name="period" placeholder="36" value="{{ old('period') }}">
-                                    <span class="input-group-text">{{ __('месяцев') }}</span>
+                                    <span class="input-group-text bg-light">{{ __('месяцев') }}</span>
                                 </div>
                                 @error('period')
                                     <p class="text-danger mt-2">{{ $message }}</p>
@@ -101,7 +102,7 @@
                                 <label for="creditPayment" class="form-label required">{!! Icons::get(Icons::BALANCE_START) !!} {{ __('Платеж') }}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="creditPayment" name="payment" placeholder="8654.09" value="{{ old('payment') }}" aria-describedby="creditPaymentHelp">
-                                    <span class="input-group-text currency">{{ __('RUB') }}</span>
+                                    <span class="input-group-text currency bg-light">{{ CurrencyEnum::RUB->name }}</span>
                                 </div>
                                 <div id="creditPaymentHelp" class="form-text mb-3">{{ __('Ваш ежемесячный платеж по кредиту') }}</div>
                                 @error('payment')

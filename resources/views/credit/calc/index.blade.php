@@ -31,11 +31,11 @@
                                 @forelse($credits as $credit)
                                     <tr>
                                         <td data-label="Название" class="text-start"><a class="text-decoration-none text-primary" href="{{ route('credit.calc.show', $credit->credit_id) }}">{{ $credit->title ?? '' }}</a></td>
-                                        <td data-label="Валюта" class="text-center">{{ $credit->currency ?? '' }}</td>
-                                        <td data-label="Сумма" class="text-end">{{ number_format($credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->currency }}</td>
+                                        <td data-label="Валюта" class="text-center">{{ $credit->currency->abbr ?? '' }}</td>
+                                        <td data-label="Сумма" class="text-end">{{ number_format($credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
                                         <td data-label="Процент" class="text-center">{{ number_format($credit->percent ?? 0, 2, '.', ' ') }}%</td>
                                         <td data-label="Срок" class="text-center">{{ $credit->period ?? 0 }} (в месяцах)</td>
-                                        <td data-label="Платеж" class="text-end">{{ number_format($credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->currency }}</td>
+                                        <td data-label="Платеж" class="text-end">{{ number_format($credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
                                         <td data-label="Действия" class="text-end">
                                             <form method="post" action="{{ route('credit.calc.destroy', $credit->credit_id) }}">
                                                 @csrf

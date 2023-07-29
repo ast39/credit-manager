@@ -12,11 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wallet_currencies', function (Blueprint $table) {
-            $table->id('currency_id');
+            $table->id('currency_id')
+                ->comment('ID валюты');
+
             $table->string('title')
                 ->comment('Название валюты');
+
             $table->string('abbr')
                 ->comment('Аббревиатура - сокращение валюты');
+
             $table->unsignedTinyInteger('status')
                 ->default(1);
 

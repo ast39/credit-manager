@@ -3,6 +3,7 @@
 namespace App\Libs\Finance\Fraud;
 
 use App\Libs\Finance\Exceptions\RequestDataException;
+use App\Models\Wallet\WalletCurrency;
 
 class RequestData {
 
@@ -10,7 +11,7 @@ class RequestData {
     public string $title;
 
     # Валюта
-    public string $currency;
+    public WalletCurrency $currency;
 
     # Сумма
     public float  $amount;
@@ -26,7 +27,7 @@ class RequestData {
 
     /**
      * @param string $title
-     * @param string $currency
+     * @param WalletCurrency $currency
      * @param float $amount
      * @param float $percent
      * @param int $period
@@ -35,7 +36,7 @@ class RequestData {
      */
     public function __construct(
         string $title,
-        string $currency,
+        WalletCurrency $currency,
         float  $amount,
         float  $percent,
         int    $period,

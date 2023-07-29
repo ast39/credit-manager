@@ -26,7 +26,7 @@ class CreditStoreRequest extends FormRequest {
         return [
 
             'title'        => 'required|string',
-            'currency'     => 'required|string',
+            'currency_id'  => 'required|integer',
             'creditor'     => 'required|string',
             'start_date'   => 'required|string',
             'payment_date' => 'required|string',
