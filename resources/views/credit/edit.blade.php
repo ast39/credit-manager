@@ -11,11 +11,11 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-12">
+                <div class="card bg-primary text-white">
                     <div class="card-header">{{ __('Изменить кредит') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body bg-white">
 
                         <form action="{{ route('credit.update', $credit->credit_id) }}" method="post">
                             @csrf

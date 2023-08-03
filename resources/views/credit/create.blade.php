@@ -10,11 +10,11 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-12">
+                <div class="card bg-primary text-white">
                     <div class="card-header">{{ __('Добавить кредит') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body bg-white">
 
                         <form method="post" action="{{ route('credit.store') }}">
                             @csrf

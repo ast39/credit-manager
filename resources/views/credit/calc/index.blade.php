@@ -34,10 +34,10 @@
                                         <tr>
                                             <td data-label="Название" class="text-start"><a class="text-decoration-none text-primary" href="{{ route('credit.calc.show', $credit->credit_id) }}">{{ $credit->title ?? '' }}</a></td>
                                             <td data-label="Валюта" class="text-center">{{ $credit->currency->abbr ?? '' }}</td>
-                                            <td data-label="Сумма" class="text-end">{{ number_format($credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
-                                            <td data-label="Процент" class="text-center">{{ number_format($credit->percent ?? 0, 2, '.', ' ') }}%</td>
-                                            <td data-label="Срок" class="text-center">{{ $credit->period ?? 0 }} (в месяцах)</td>
-                                            <td data-label="Платеж" class="text-end">{{ number_format($credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
+                                            <td data-label="Сумма" class="text-end">{{ is_null($credit->amount) ? '???' : number_format($credit->amount, 0, '.', ' ') . ' ' . $credit->currency->abbr }}</td>
+                                            <td data-label="Процент" class="text-center">{{ is_null($credit->percent) ? '???' : number_format($credit->percent, 2, '.', ' ') }}</td>
+                                            <td data-label="Срок" class="text-center">{{ is_null($credit->period) ? '???' : $credit->period . ' ' . Lang::choice('месяц|месяца|месяцев', $credit->period) }}</td>
+                                            <td data-label="Платеж" class="text-end">{{ is_null($credit->payment) ? '???' : number_format($credit->payment, 0, '.', ' ') . ' ' . $credit->currency->abbr }}</td>
                                             <td data-label="Действия" class="text-end">
                                                 <form method="post" action="{{ route('credit.calc.destroy', $credit->credit_id) }}">
                                                     @csrf
@@ -62,12 +62,12 @@
                                         <td colspan="3" class="text-start">{!! Icons::get(Icons::TITLE) !!} <a class="text-decoration-none text-primary" href="{{ route('credit.calc.show', $credit->credit_id) }}">{{ $credit->title ?? '' }}</a></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-start">{!! Icons::get(Icons::PERIOD) !!} {{ $credit->period ?? 0 }} {{ Lang::choice('месяц|месяца|месяцев', $credit->period ?? 0) }}</td>
-                                        <td class="text-center">{!! Icons::get(Icons::PERCENT) !!} {{ number_format($credit->percent ?? 0, 2, '.', ' ') }}</td>
-                                        <td class="text-end">{!! Icons::get(Icons::PAYMENT) !!} {{ number_format($credit->payment ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
+                                        <td class="text-start">{!! Icons::get(Icons::PERIOD) !!} {{ is_null($credit->period) ? '???' : $credit->period . ' ' . Lang::choice('месяц|месяца|месяцев', $credit->period) }}</td>
+                                        <td class="text-center">{!! Icons::get(Icons::PERCENT) !!} {{ is_null($credit->percent) ? '???' : number_format($credit->percent, 2, '.', ' ') }}</td>
+                                        <td class="text-end">{!! Icons::get(Icons::PAYMENT) !!} {{ is_null($credit->payment) ? '???': number_format($credit->payment, 0, '.', ' ') . ' ' . $credit->currency->abbr }}</td>
                                     </tr>
                                     <tr class="border-bottom">
-                                        <td  colspan="2" class="text-start">{!! Icons::get(Icons::AMOUNT) !!} {{ number_format($credit->amount ?? 0, 0, '.', ' ') }} {{ $credit->currency->abbr }}</td>
+                                        <td  colspan="2" class="text-start">{!! Icons::get(Icons::AMOUNT) !!} {{ is_null($credit->amount) ? '???' : number_format($credit->amount, 0, '.', ' ') . ' ' . $credit->currency->abbr }}</td>
                                         <td class="text-end">
                                             <form method="post" action="{{ route('credit.calc.destroy', $credit->credit_id) }}">
                                                 @csrf

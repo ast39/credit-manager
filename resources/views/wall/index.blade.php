@@ -1,6 +1,7 @@
 @php
     use App\Libs\Icons;
     use App\Libs\Helper;
+    use App\Enums\CurrencyEnum;
 @endphp
 
 @extends('layouts.app')
@@ -44,7 +45,6 @@
                                 </tbody>
                             </table>
                         @elsedesktop
-
                             <table class="table table-borderless">
                                 <tr class="table-secondary border-bottom border-top">
                                     <td colspan="2" class="text-center bg-light">Платежи в этом месяце</td>
@@ -74,21 +74,21 @@
                                 <caption>{{ __('Сальдо за месяц') }}</caption>
                                 <tr>
                                     <td class="text-secondary text-start" colspan="2">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} Финансовая нагрузка:</td>
-                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB';}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD';}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR';}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                                 <tr>
                                     <td class="text-success text-start" colspan="2">{!! Icons::get(Icons::SMILE_HAPPY) !!} Выплачено в этом месяце:</td>
-                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                                 <tr>
                                     <td class="text-danger text-start" colspan="2">{!! Icons::get(Icons::SMILE_SAD) !!} Осталось выплатить в этом месяце:</td>
-                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                             </table>
                         @elsedesktop
@@ -101,27 +101,27 @@
                                     <td colspan="3" class="text-start">{!! Icons::get(Icons::SMILE_NEUTRAL) !!} Финансовая нагрузка</td>
                                 </tr>
                                 <tr class="border-bottom">
-                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB';}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD';}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR';}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3" class="text-start">{!! Icons::get(Icons::SMILE_HAPPY) !!} Выплачено в этом месяце</td>
                                 </tr>
                                 <tr class="border-bottom">
-                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name && $e['status'] == true;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name && $e['status'] == true;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name && $e['status'] == true;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3" class="text-start">{!! Icons::get(Icons::SMILE_SAD) !!} Осталось выплатить</td>
                                 </tr>
                                 <tr class="border-bottom">
-                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'RUB' && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
-                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'USD' && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
-                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency'] == 'EUR' && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
+                                    <td data-label="В RUB" class="text-start">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::RUB->name && $e['status'] == false;}))), 0, '.', ' ') }} RUB</td>
+                                    <td data-label="В USD" class="text-center">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::USD->name && $e['status'] == false;}))), 0, '.', ' ') }} USD</td>
+                                    <td data-label="В EUR" class="text-end">{{ number_format(array_sum(array_map(function($e){return $e['payment'];}, array_filter($credits, function($e) {return $e['currency']['abbr'] == CurrencyEnum::EUR->name && $e['status'] == false;}))), 0, '.', ' ') }} EUR</td>
                                 </tr>
                             </table>
                         @enddesktop

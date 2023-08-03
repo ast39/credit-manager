@@ -2,6 +2,7 @@
 
 namespace App\Http\Mutators;
 
+use App\Libs\Time\TimeManager;
 use Illuminate\Database\Eloquent\Collection;
 
 class CreditEventMutator {
@@ -17,12 +18,13 @@ class CreditEventMutator {
         $events = [];
 
         foreach ($credits as $credit) {
+            $next_payment_date = TimeManager::shiftMonth(time(), $this->overDueTime($credit));
 
             $events[] = [
                 'credit_id' => $credit['credit_id'],
                 'date'      => date('d', $credit['payment_date']) . '.'
-                    . date('m', time()) . '.' . date('Y', time()),
-                'date_time' => $this->paymentDate($credit),
+                    . date('m', $next_payment_date) . '.' . date('Y', $next_payment_date),
+                'date_time' => TimeManager::shiftMonth($this->paymentDate($credit), $this->overDueTime($credit)),
                 'title'     => $credit['title'],
                 'creditor'  => $credit['creditor'],
                 'payment'   => $credit['payment'],
@@ -56,6 +58,30 @@ class CreditEventMutator {
         }
 
         return false;
+    }
+
+    /**
+     * @param array $credit
+     * @return int
+     */
+    private function overDueTime(array $credit): int
+    {
+        if ($this->firstPaymentInFuture($credit)) {
+            return 0;
+        }
+
+        $current_payment_date = $credit['payment_date'];
+
+        for ($i = 1; $i <= $credit['period']; $i++) {
+
+            if ($this->isCurrentMonth($current_payment_date)) {
+                return count($credit['payments']) - $i + 1;
+            }
+
+            $current_payment_date = $this->plusMonth($current_payment_date);
+        }
+
+        return 0;
     }
 
     /**
