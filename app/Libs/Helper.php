@@ -85,7 +85,8 @@ class Helper {
         } else if ($days == 0) {
             return 'Списание сегодня';
         } else {
-            return $days . self::number($days, [__('день'), __('дня'), __('дней')]);
+            return 'Платеж ' . date('d.m.Y', time() + ($days * 3600 * 24));
+//            return 'через ' . $days . self::number($days, [__('день'), __('дня'), __('дней')]);
         }
     }
 

@@ -17,7 +17,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,7 +27,7 @@
         include_once public_path() . '/images/site_sprite.svg';
     @endphp
 
-        <!-- CSS grubber -->
+    <!-- CSS grubber -->
     @stack('css')
 
     <!-- Scripts -->
@@ -137,15 +137,6 @@
                             <br /><br />
                             Актуальная версия приложения {{ config('app.version') }}
                         </p>
-                    </div>
-
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Открытые модули
-                        </h6>
-                        <p>Кредитный калькулятор</p>
-                        <p>Проверка кредита</p>
-                        <p>Кредитный календарь</p>
                     </div>
 
                     <div class="col-md-5 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

@@ -1,8 +1,9 @@
 @php
-    //
+    use App\Libs\Icons;
 @endphp
 
 <form method="get" action="{{ route('credit.index', $sortable) }}" data-filterline__sandwich>
+    <label for="currency" class="form-label">{!! Icons::get(Icons::FILTER) !!} {{ __('Фильтры') }}</label>
     <div class="mmot-filterline__sandwich dselect-wrapper" data-filterline_sandwich_parent="filter_planing">
         <div class="mmot-filterline__sandwich__head form-select">Настройки фильтра</div>
     </div>

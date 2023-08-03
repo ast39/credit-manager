@@ -10,13 +10,13 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-12">
+                <div class="card bg-primary text-white">
                     <div class="card-header">{{ __('Проверить кредит') }}</div>
-                    <div class="card-body">
+                    <div class="card-body bg-white">
 
                         <div class="text-end">
-                            <a href="{{ route('credit.check.index') }}">История расчетов</a>
+                            <a class="text-primary" href="{{ route('credit.check.index') }}">История расчетов</a>
                         </div>
 
                         <form method="post" action="{{ route('credit.check.store') }}">

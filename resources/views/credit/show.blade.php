@@ -81,38 +81,77 @@
                                         {{ __('График платежей') }}
                                     </button>
                                 </h2>
+
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
 
-                                        <table class="table table-bordered admin-table__adapt admin-table__instrument">
-                                            <thead class="table-secondary">
-                                                <tr>
-                                                    <th class="text-center" scope="row">#</th>
-                                                    <th class="text-center">{!! Icons::get(Icons::CALENDAR) !!} {{ __('Месяц') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::INSET_LR) !!} {{ __('Баланс') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::BALANCE_START) !!} {{ __('Платеж') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::PERCENT) !!} {{ __('Проценты') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::AMOUNT) !!} {{ __('Тело') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::OUTSET_LR) !!} {{ __('Остаток') }}</th>
-                                                    <th class="text-end">{!! Icons::get(Icons::CHECK) !!} {{ __('Оплата') }}</th>
-                                                </tr>
-                                            </thead>
+{{--                                        @desktop--}}
+{{--                                            <table class="table table-bordered admin-table__adapt admin-table__instrument">--}}
+{{--                                                <thead class="table-secondary">--}}
+{{--                                                    <tr>--}}
+{{--                                                        <th class="text-center" scope="row">#</th>--}}
+{{--                                                        <th class="text-center">{!! Icons::get(Icons::CALENDAR) !!} {{ __('Месяц') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::INSET_LR) !!} {{ __('Баланс') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::BALANCE_START) !!} {{ __('Платеж') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::PERCENT) !!} {{ __('Проценты') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::AMOUNT) !!} {{ __('Тело') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::OUTSET_LR) !!} {{ __('Остаток') }}</th>--}}
+{{--                                                        <th class="text-end">{!! Icons::get(Icons::CHECK) !!} {{ __('Оплата') }}</th>--}}
+{{--                                                    </tr>--}}
+{{--                                                </thead>--}}
 
-                                            <tbody>
+{{--                                                <tbody>--}}
+{{--                                                    @php--}}
+{{--                                                        $payed_percent = $payed_body = $payed_payments = 0;--}}
+{{--                                                    @endphp--}}
+
+{{--                                                    @forelse($credit->details as $row)--}}
+{{--                                                        <tr class="{{ date('Y', $row['date_time']) == date('Y', time()) && date('m', $row['date_time']) == date('m', time()) ? 'bg-like-a-accordion' : '' }}">--}}
+{{--                                                            <td data-label="#" class="text-center">{{ $loop->iteration }}</td>--}}
+{{--                                                            <td data-label="{{ __('Месяц') }}" class="text-center">{{ date('d.m.Y', $row['date_time']) }}</td>--}}
+{{--                                                            <td data-label="{{ __('Баланс') }}" class="text-end">{{ number_format($row['inset_balance'], 0, '.', ' ') }}</td>--}}
+{{--                                                            <td data-label="{{ __('Платеж') }}" class="text-end">{{ number_format($row['credit_payment'], 0, '.', ' ') }}</td>--}}
+{{--                                                            <td data-label="{{ __('Проценты') }}" class="text-end">{{ number_format($row['payment_percent'], 0, '.', ' ') }}</td>--}}
+{{--                                                            <td data-label="{{ __('Тело') }}" class="text-end">{{ number_format($row['payment_body'], 0, '.', ' ') }}</td>--}}
+{{--                                                            <td data-label="{{ __('Остаток') }}" class="text-end">{{ number_format($row['outset_balance'], 0, '.', ' ') }}</td>--}}
+{{--                                                            <td data-label="{{ __('Оплата') }}" class="text-end {{ Helper::getPaymentTextColor($row['date_time'], $row['status']) }}"><i class="{{ Helper::getPaymentIcon($row['date_time'], $row['status']) }}"></i></td>--}}
+{{--                                                        </tr>--}}
+
+{{--                                                        @php--}}
+{{--                                                            if (count($credit->credit->payments) >= $loop->iteration) {--}}
+
+{{--                                                                $payed_percent += $row['payment_percent'];--}}
+{{--                                                                $payed_body    += $row['payment_body'];--}}
+{{--                                                                $payed_payments++;--}}
+{{--                                                            }--}}
+{{--                                                        @endphp--}}
+{{--                                                    @empty--}}
+{{--                                                        <div class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">{{ __('Расчет не удался') }}</div>--}}
+{{--                                                    @endforelse--}}
+{{--                                                </tbody>--}}
+{{--                                            </table>--}}
+{{--                                        @elsedesktop--}}
+                                            <table class="table table-borderless">
+                                                <tbody>
                                                 @php
                                                     $payed_percent = $payed_body = $payed_payments = 0;
                                                 @endphp
 
                                                 @forelse($credit->details as $row)
+                                                    <tr class="{{ date('Y', $row['date_time']) == date('Y', time()) && date('m', $row['date_time']) == date('m', time()) ? 'bg-like-a-accordion rounded' : '' }}">
+                                                        <td class="text-start"><i class="{{ Helper::getPaymentTextColor($row['date_time'], $row['status']) }} {{ Helper::getPaymentIcon($row['date_time'], $row['status']) }}"></i> {{ date('d.m.Y', $row['date_time']) }}</td>
+                                                        <td class="text-end">{!! Icons::get(Icons::PAYMENT) !!} {{ number_format($row['credit_payment'], 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
+                                                    </tr>
                                                     <tr class="{{ date('Y', $row['date_time']) == date('Y', time()) && date('m', $row['date_time']) == date('m', time()) ? 'bg-like-a-accordion' : '' }}">
-                                                        <td data-label="#" class="text-center">{{ $loop->iteration }}</td>
-                                                        <td data-label="{{ __('Месяц') }}" class="text-center">{{ date('d.m.Y', $row['date_time']) }}</td>
-                                                        <td data-label="{{ __('Баланс') }}" class="text-end">{{ number_format($row['inset_balance'], 0, '.', ' ') }}</td>
-                                                        <td data-label="{{ __('Платеж') }}" class="text-end">{{ number_format($row['credit_payment'], 0, '.', ' ') }}</td>
-                                                        <td data-label="{{ __('Проценты') }}" class="text-end">{{ number_format($row['payment_percent'], 0, '.', ' ') }}</td>
-                                                        <td data-label="{{ __('Тело') }}" class="text-end">{{ number_format($row['payment_body'], 0, '.', ' ') }}</td>
-                                                        <td data-label="{{ __('Остаток') }}" class="text-end">{{ number_format($row['outset_balance'], 0, '.', ' ') }}</td>
-                                                        <td data-label="{{ __('Оплата') }}" class="text-end {{ Helper::getPaymentTextColor($row['date_time'], $row['status']) }}"><i class="{{ Helper::getPaymentIcon($row['date_time'], $row['status']) }}"></i></td>
+                                                        <td class="text-start">{!! Icons::get(Icons::PERCENT) !!} {{ number_format($row['payment_percent'], 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
+                                                        <td class="text-end">{!! Icons::get(Icons::OUTSET_LR) !!} {{ number_format($row['outset_balance'], 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
+                                                    </tr>
+                                                    <tr class="{{ date('Y', $row['date_time']) == date('Y', time()) && date('m', $row['date_time']) == date('m', time()) ? 'bg-like-a-accordion rounded' : '' }}">
+                                                        <td colspan="2">
+                                                            <div class="progress" style="height: 2px;">
+                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ 100 - ($row['outset_balance'] / $credit->credit->amount * 100) }}%;" aria-valuenow="{{ 100 - ($row['outset_balance'] / $credit->credit->amount * 100) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
 
                                                     @php
@@ -126,15 +165,15 @@
                                                 @empty
                                                     <div class="text-center p-2 mb-2 bg-secondary bg-gradient text-white rounded">{{ __('Расчет не удался') }}</div>
                                                 @endforelse
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+{{--                                        @enddesktop--}}
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <table class="table table-borderless table-striped mt-3">
-                            <tbody>
+                            <table class="table table-borderless table-striped mt-3">
+                                <tbody>
                                 <tr>
                                     <th class="text-start">{!! Icons::get(Icons::WAS_PAYED) !!} {{ __('Выплачено долга (План)') }}</th>
                                     <td class="text-end">{{ number_format($credit->balance_payed ?? 0, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
@@ -167,8 +206,9 @@
                                     <th class="text-start">{!! Icons::get(Icons::BALANCE_CASH) !!} {{ __('Остаток долга') }}</th>
                                     <td class="text-end">{{ number_format($credit->credit->amount - $payed_body, 0, '.', ' ') }} {{ $credit->credit->currency->abbr }}</td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

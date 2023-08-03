@@ -29,6 +29,8 @@ class Icons {
     const TITLE         = 'bi bi-text-indent-left';       // заголовок
     const BANK          = 'bi bi-bank';                   // банк
     const LIST          = 'bi bi-list-ul';                // список
+    const FILTER        = 'bi bi-funnel';                 // фильтр
+    const SORTABLE      = 'bi bi-sort-down-alt';          // сортировка
     const CHECK_LIST    = 'bi bi-card-checklist';         // чек лист
     const CALENDAR_DAY  = 'bi bi-calendar2-date';         // дата календаря
     const CALENDAR      = 'bi bi-calendar3';              // общий календарь
@@ -44,6 +46,7 @@ class Icons {
     const BALANCE       = 'bi bi-cash-stack';             // пачка денежек
     const BALANCE_CASH  = 'bi bi-cash-coin';              // денежка с монеткой
     const TRANSACTIONS  = 'bi bi-arrow-down-up';          // транзакции
+    const COUNTER       = 'bi bi-grid-fill';              // Количество
 
     const PROFIT        = 'bi bi-chevron-double-up';      // рост
     const LOSS          = 'bi bi-chevron-double-down';    // упадок

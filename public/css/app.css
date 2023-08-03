@@ -46,7 +46,7 @@
 html, body{min-height: 100vh;}
 
 input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
+/*input[type="date"]::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}*/
 
 .newdesign{min-height:67vh; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-align-items: center; -ms-flex-align: center; align-items: center;}
 .newdesign-nav{background-color: #86aecc !important;}
